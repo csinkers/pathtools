@@ -1,0 +1,24 @@
+{
+    "workbench.colorTheme": "Visual Studio 2019 Dark",
+    "editor.fontSize": 18,
+    "omnisharp.enableDecompilationSupport": true,
+    "omnisharp.enableRoslynAnalyzers": true,
+    "vim.normalModeKeyBindingsNonRecursive": [
+        { "before": ["s"], "after": ["j"] },
+        { "before": ["t"], "after": ["k"] },
+        { "before": ["S"], "after": ["5", "j"] },
+        { "before": ["T"], "after": ["5", "k"] },
+        { "before": ["k"], "after": ["t"] },
+        { "before": ["K"], "after": ["T"] }
+    ],
+    "vim.visualModeKeyBindingsNonRecursive": [
+        { "before": ["s"], "after": ["j"] },
+        { "before": ["t"], "after": ["k"] },
+        { "before": ["S"], "after": ["5", "j"] },
+        { "before": ["T"], "after": ["5", "k"] },
+        { "before": ["k"], "after": ["t"] },
+        { "before": ["K"], "after": ["T"] }
+    ],
+    "keyboard.dispatch": "keyCode",
+    "workbench.sideBar.location": "right"
+}

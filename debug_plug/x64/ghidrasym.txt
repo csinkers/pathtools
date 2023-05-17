@@ -1,0 +1,2 @@
+Windbg plugin for adding synthetic symbols based on a ghidra XML output
+Source at https://github.com/csinkers/GhidraSym

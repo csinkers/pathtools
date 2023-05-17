@@ -1,0 +1,1 @@
+SET Depot=C:\Depot

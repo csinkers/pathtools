@@ -1,0 +1,165 @@
+A collection of handy utilities and scripts.  Written/collected by Cam Sinclair (2008-)
+
+A good deal of these tools are from the GnuWin32 project (gnuwin32.sourceforge.net), 
+released under GNU or similar open source licenses (http://gnuwin32.sourceforge.net/license.html)
+Usage information for the GnuWin32 tools can generally be obtained by passing the --help parameter
+Any dlls present are also from the GnuWin32 project and are required by some of the tools.
+Many of the scripts utilise vim for editing files (www.vim.org)
+
+Installation details:
+
+Distribution details:
+	dev - contains tools suitable for a dev environment (visual studio stuff etc)
+	test - contains tools more suited to testing (pretty much a cut-down version of dev)
+	colemak* - versions containing some additional tools for the colemak keyboard layout, 
+		probably not of much use to anyone other than me
+
+Select a distribution, then copy the Path folder to C:\ (c:\path is the default, 
+this can be changed by editing a.bat afterwards)
+If your depot directory is not C:\Depot, change this in a.bat
+Then go to System properties (Windows+Pause), advanced, environment settings and edit 
+PATH under system variables. Add ;C:\Path to the end of the line. This will allow you to use 
+these tools from anywhere on the command line.
+Additionally, if you are using vim it can be helpful to put in on the path as well.
+
+If you wish to use enhance.ahk (see later for details), then you will have to install 
+autohotkey and make a shortcut to enhance.ahk, then move the shortcut to your startup folder 
+(%APPDATA%\Microsoft\Windows\Start Menu\Programs\Startup)
+
+If you use vim, a couple of useful plugins are in the path\vim\vimfiles directory (dbext, lets you use vim to query databases and increment.vim, occasionally useful for repetitive code)
+Additionally, a _vimrc file is available that may be of interest (\Path\Vim\_vimrc)
+
+A brief summary of the incuded files:
+-------------------------------------
+
+Programs:
+---------
+add: Small program I wrote for adding numbers, uses stdio
+awk: The awk tool for text stream manipulation (from GnuWin32)
+cat: Concatenate files (from GnuWin32)
+cp: Copy files (from GnuWin32)
+ged: Unix ed. Extremely user unfriendly line editor that has some use in scripts. (from GnuWin32)
+getclip: Outputs the contents of the clipboard to stdout (from GnuWin32)
+gfind: The gnu find utility (works about the same as dir /s /b) (from GnuWin32)
+gkill: Kill a process (GnuWin32)
+grep: Find in files using a regular expression (GnuWin32)
+gsort: Sort lines from stdin, output to stdout, useful for running from vim (GnuWin32)
+head: Display the first few lines from a file (GnuWin32)
+less: Paging of program output (GnuWin32)
+mv: Move files (GnuWin32)
+null: A program that does nothing, succesfully
+putclip: Places stdin into the clipboard
+pwd: Print the working directory (GnuWin32) (can use pwd|putclip to copy the current path to the clipboart)
+rm: remove files (GnuWin32)
+sed: The gnu stream editor (GnuWin32)
+seq: Output a sequence of numbers (GnuWin32)
+sleep: wait for a number of seconds (used with zz.bat and zx.bat) (GnuWin32)
+super_rename: A compiled autohotkey script of mine for renaming a number of files using regular expressions (PCRE)
+tail: Opposite of head, lists last few lines of a file/stdin (GnuWin32)
+tee: Saves stdin to a file while still echoing to stdout, useful for saving logs of cmdline builds etc
+uniq: Output all the unique lines that were entered (useful with vim) (GnuWin32)
+wc: Word/line/character count program (GnuWin32)
+windbg: This is the debugger from the free Windows Debugging Tools collection from Microsoft.
+xmllint: Program for reformatting and validation of xml
+xxd: A command line non-interactive hex editor/viewer (can sort of be used to make vim a hex editor)
+
+Misc Files
+----------
+bom: The byte order mark for UTF-8 files, used by sig.bat to sign unicode files
+enhance.ahk: My autohotkey script, does a whole bunch of stuff, adds many hotkeys to windows
+README: This file
+
+Batch files:
+----------------------------------------
+
+Many batch files for changing directory:
+	The first character is the version minor number (e.g. 2 goes to C:\Depot\Enterprise\Dev\PointOfSale)
+	If the second character is s or q, it specifies a stream (default to dev)
+   The last character can be a more specific directory, e.g. 2sd = 7.2 stable PoS bin/debug dir
+		examples:
+			2 - 7.2Dev PoS dir
+			2d - 7.2Dev PoS bin/debug dir
+   		2l - 7.2Dev Live
+			2m - 7.2Dev Manager dir
+			2sv - 7.2Dev Server dir
+
+[.bat - cd bin\debug
+].bat - cd bin\release
+a.bat: A batch file that gets automatically run by enhance.ahk. Allows a lot of useful cmdline shortcuts etc
+bd.bat: Build any solution files in the current directory in a debug configuration
+br.bat: Build any solution files in the current directory in a release configuration
+buildf.bat: Make a list of files for grepping (filters out most binary and temp files, requires vim)
+c.bat: Shortcut for cd /d
+d.bat: does a quick recursive list of files matching criteria (e.g. d *cpp lists all cpp files)
+ed.bat: Opens filenames output from a program in visual studio (e.g. ed d foo*.cpp opens all cpp files starting with serviceblock)
+fe.bat: Runs something for each filename output from a program (typically used with dir /b or a grep on a filelist like that output from buildf)
+	e.g. `fe "grep -i foo\.cpp f" @gvim` will open any file 'foo.cpp' whose path is listed in the file f using gvim
+	e.g. 'fe "d *cpp @devenv will open all cpp files in all subdirectories under the current in visual studio
+ff.bat: Given a file containing filenames, run a command on each of them, e.g. ff files_list @del will delete all files listed in files_list
+g.bat: Go to the directory where these utils are stored (Default C:\Path, to change edit the set topath line in a.bat)
+pt.bat: Purge the %temp% directory
+qq.bat: Unregister dlls in current directory
+qr.bat: Copy report dlls to system32 (use release build dlls for this)
+qw.bat: Reregister dlls in current directory
+sa.bat: Abort a scheduled shutdown
+sig.bat: Signs a UTF-8 file with the byte order mark (not a smart script, will re-sign already signed files). Unsigning can be done with a hex editor
+sql.bat: For quick pos queries from the cmdline
+v.bat: Shortcut for gvim
+vl.bat: Load gvim with latin1 character encoding (shouldn't be needed much, most things are utf-8)
+x.bat: display an xml file with nice formatting
+
+Enhance.ahk hotkeys:
+--------------------
+Windows+Space: Toggle the title bar of the active window, can be useful if you want a little moreWindows+Space: Toggle the title bar of the active window
+Windows+1: Open C:\ in explorer
+Windows+2: Open D:\ in explorer
+Windows+A: Run gvim
+Windows+C: Run Windows calculator
+Windows+F: Toggle always on top for the current window
+Windows+G: Run super_rename
+Windows+K: Move mouse to the top-left corner of the current window
+Windows+M: Run Mozilla Firefox
+Windows+N: Run notepad
+Windows+P: Run P4Win (perforce)
+Windows+Q: Run regedit
+Windows+S: Run SQL Management Studio
+Windows+T: Make a window take up the full screen height (t=tall)
+Windows+V: Run Visual Studio
+Windows+X: Run services.msc
+Windows+Z: Open command prompt. If an explorer window is selected, opens it in the same directory (title bar shows full path must be enabled in folder options)
+Windows+,: Move current window to take up all of monitor 2
+Windows+.: Move current window to the left half of monitor 1
+Windows+/: Move current window to the right half of monitor 1
+Windows+': Make current window span both monitors
+
+Additionally some hotkeys only operate when a command prompt is selected:
+Shift+PageUp/Down: Scrolls pages like a unix shell
+Ctrl+A: Same as pressing home
+Ctrl+E: used for building up commands, adds |putclip&&fe getclip @start gvim after the current cmdline (advanced)
+Ctrl+F: Find something in the current buffer
+Ctrl+R: Same as end
+Ctrl+S: Clear until a given character (like dt in vim)
+Ctrl+U: Clear the whole line (like unix shells)
+Ctrl+V: Paste text from the clipboard into the command line
+Ctrl+W: Delete the word before the cursor (very useful)
+Ctrl+Q: Go back a word (same as Ctrl+Left)
+Ctrl+Z: go up a directory (cd ..)
+
+Special behaviour is given to the mouse buttons as well:
+
+Right click and drag on a window moves and resizes it. If clicked in the central area, the window is moved, clicking nearer to the edges/corners resizes in an intuitive manner.
+
+Middle click when an explorer window is selected goes up a directory
+
+The button on the left of the mouse minimises windows, unless the window is beyond compare, in which case its normal back motion is performed.
+
+The button on the right closes windows and goes forward in beyond compare.
+
+
+a.bat:
+------
+This adds a few more shortcuts that can be used in the command line.
+pressing . then enter will open the current directory in explorer
+.z then enter does the same, and closes the command prompt
+z will exit the current command prompt
+

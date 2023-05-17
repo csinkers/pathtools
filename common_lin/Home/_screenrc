@@ -1,0 +1,22 @@
+escape ^Oo
+defscrollback 5000
+startup_message off
+hardstatus alwayslastline
+hardstatus string '%{= kG}[ %{G}%H %{g}][%= %{= kw}%?%-Lw%?%{r}(%{W}%n*%f%t%?(%u)%?%{r})%{w}%?%+Lw%?%?%= %{g}][%{B} %m-%d %{W}%c %{g}]'
+msgminwait 0
+bindkey "%[0d" prev
+bindkey "%[0c" next
+
+term putty-256color
+termcapinfo rxvt-unicode ti@:te@
+terminfo rxvt-unicode ti@:te@:
+setenv LC_CTYPE en_US.UTF-8
+defutf8 on
+
+bindkey -d "^[[27~" eval copy "stuff 15\025"
+bindkey -m "^[[27~" stuff 15\025
+
+bindkey -d "^[[28~" eval copy "stuff 15\004"
+bindkey -m "^[[28~" stuff 15\004
+altscreen on
+

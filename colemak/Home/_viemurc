@@ -1,0 +1,9 @@
+noremap s j
+noremap j s
+noremap t k
+noremap k t
+noremap S 5j
+noremap T 5k
+noremap K T
+
+nnoremap <esc> <esc>:noh<cr>

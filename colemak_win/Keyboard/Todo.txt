@@ -1,0 +1,205 @@
+Re-add Ctrl [, ], \ in colemak (Check QWERTY Ctrl-state bindings)
+x Make russian keyboard
+
+Nice to have:
+x   Greek alphabet (with dead key?)
+x   Superscript 0..9 2070 .. 2079
+x   Subscript 0..9 = 2080 .. 2089
+x   Interrobang 203d
+x   Superscript n 207f
+x   Planck 210e
+x   hbar 210f
+x   Double Struck:
+x       N 2115
+x       P 2119
+x       Q 211a
+x       R 211d
+x       Z 2124
+        C 2102
+    Partial Diff 2202
+x   For All 2200
+x   There Exists 2203
+    Empty Set 2205
+    Nabla 2207
+    Element Of 2208
+    Not Element Of 2209
+    Logical And 2227
+    Logical Or 2228
+    Intersection 2229
+    Union 222a
+    Integral 222b
+x   Therefore 2234
+    Because 2235
+    Subset of 2282
+    Superset of 2283
+    Not subset 2284
+    Not superset 2285
+    Subset or equal 2286
+    Super or equal 2287
+    Neither subset nor equal 2288
+    Neither super nor equal 2289
+    Sub not equal 228a
+    Super not equal 228b
+x   Up Tack aka Bottom 22a5
+    Root 221a 
+    Infinity 221e 
+
+x   Bra 27e8
+x   Ket 27e9
+
+x   Approx Equal 2248 
+
+Unneeded colemak bindings:
+    AltGr:
+        G - ogonek
+        , - cedilla
+        . - dot above
+
+AltGr + \:
+
+0025	2030	// % -> ‰
+002b	00b1	// + -> ±
+002c		// , -> 
+002d		// - -> 
+002e	2026	// . -> …
+002f	2205	// / -> EmptySet
+003c	2264	// < -> ≤
+003d	2260	// = -> ≠
+003e	2265	// > -> ≥
+003f	203d	// ? -> Interrobang
+0041	2200	// A -> ForAll
+0042		// B -> 
+0043		// C -> 
+0044		// D -> 
+0045	2203	// E -> ThereExists
+0046		// F -> 
+0047		// G -> 
+0048	210f	// H -> hbar
+0049		// I -> 
+004a		// J -> 
+004b		// K -> 
+004c		// L -> 
+004d		// M -> 
+004e	2115	// N -> double N
+004f		// O -> 
+0050	2119	// P -> double P
+0051	211a	// Q -> double Q
+0052	211d	// R -> double R
+0053		// S -> 
+0054	2234	// T -> Therefore
+0055		// U -> 
+0056		// V -> 
+0057		// W -> 
+0058		// X -> 
+0059		// Y -> 
+005a	2124	// Z -> double Z
+005b	27e8	// [ -> bra
+005d	27e9	// ] -> ket
+005e	207f	// ^ -> ^n
+0061		// a -> 
+0062	22a5	// b -> Bottom
+0063	00a9	// c -> ©
+0064	00b0	// d -> °
+0065		// e -> 
+0066		// f -> 
+0067		// g -> 
+0068	210e	// h -> Planck
+0069		// i -> 
+006a		// j -> 
+006b		// k -> 
+006c		// l -> 
+006d	00b5	// m -> µ
+006e	2116	// n -> №
+006f		// o -> 
+0070	00b6	// p -> ¶
+0071		// q -> 
+0072	00ae	// r -> ®
+0073	00a7	// s -> §
+0074	2122	// t -> ™
+0075		// u -> 
+0076		// v -> 
+0077		// w -> 
+0078		// x -> 
+0079		// y -> 
+007a		// z -> 
+007b		// { -> 
+007c	00a6	// | -> ¦
+007d		// } -> 
+007e	2248	// ~ -> ≈
+
+
+
+G -> +, accesses greek and super/subscript numerals
+Greek:
+
+0	0030	2080	2070
+1	0031	2081	2071
+2	0032	2082	2072
+3	0033	2083	2073
+4	0034	2084	2074
+5	0035	2085	2075
+6	0036	2086	2076
+7	0037	2087	2077
+8	0038	2088	2078
+9	0039	2089	2079
+a	0061	03b1	0391
+b	0062	03b2	0392
+c	0063	03c7	03a7
+d	0064	03b4	0394
+e	0065	03b5	0395
+f	0066	03c6	03a6
+g	0067	03b3	0393
+h	0068	03b7	0397
+i	0069	03b9	0399
+j	006a	03c8	03a8
+k	006b	03ba	039a
+l	006c	03bb	039b
+m	006d	03bc	039c
+n	006e	03bd	039d
+o	006f	03bf	039f
+p	0070	03c0	03a0
+q	0071	03b8	0398
+r	0072	03c1	03a1
+s	0073	03c3	03a3
+t	0074	03c4	03a4
+u	0075	03c5	03a5
+v	0076
+w	0077	03c9	03a9
+x	0078	03be	039e
+y	0079
+z	007a	03b6	0396
+
+0025	2030	// % -> ‰
+002b	00b1	// + -> ±
+002e	2026	// . -> …
+002f	2205	// / -> EmptySet
+003c	2264	// < -> ≤
+003d	2260	// = -> ≠
+003e	2265	// > -> ≥
+003f	203d	// ? -> Interrobang
+0041	2200	// A -> ForAll
+0045	2203	// E -> ThereExists
+0048	210f	// H -> hbar
+004e	2115	// N -> double N
+0050	2119	// P -> double P
+0051	211a	// Q -> double Q
+0052	211d	// R -> double R
+0054	2234	// T -> Therefore
+005a	2124	// Z -> double Z
+005b	27e8	// [ -> bra
+005d	27e9	// ] -> ket
+005e	207f	// ^ -> ^n
+0062	22a5	// b -> Bottom
+0063	00a9	// c -> ©
+0064	00b0	// d -> °
+0068	210e	// h -> Planck
+006d	00b5	// m -> µ
+006e	2116	// n -> №
+0070	00b6	// p -> ¶
+0072	00ae	// r -> ®
+0073	00a7	// s -> §
+0074	2122	// t -> ™
+007c	00a6	// | -> ¦
+007e	2248	// ~ -> ≈
+
+Missing:

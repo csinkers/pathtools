@@ -1,0 +1,62 @@
+" BEGIN /colemak/UserHome/_vimrc
+"
+" Colemak friendly bindings, hjkl aren't convenient in colemak, use s and t
+" for down/up, and backspace/capslock for left, space for right
+" Use shift S and T for faster up/down navigation
+nnoremap s j
+xnoremap s j
+onoremap s j
+
+nnoremap j s
+xnoremap j s
+onoremap j s
+
+nnoremap t k
+xnoremap t k
+onoremap t k
+
+nnoremap k t
+xnoremap k t
+onoremap k t
+
+nnoremap S 5j
+xnoremap S 5j
+onoremap S 5j
+
+nnoremap T 5k
+xnoremap T 5k
+onoremap T 5k
+
+nnoremap K T
+xnoremap K T
+onoremap K T
+
+" On the off chance you want to write something in cyrillic...
+map ,r :set encoding=UTF-8<CR>:set keymap=russian-yawerty<CR>
+map ,R :set keymap=<CR>
+
+" Make zc toggle folds rather than close them
+noremap zc za 
+
+" If we know how to use vim we don't need menus, so we can reclaim a bit of screen space
+set guioptions-=m
+set guioptions-=T
+
+" Change the font to a good coding one (distinguishes l,1,I and o,O,0)
+if has('win32')
+    set gfn=DejaVu_Sans_Mono:h10:cANSI
+    set columns=102
+    set lines=62
+else
+    set gfn=DejaVu\ Sans\ Mono\ 10
+endif
+
+" Set our colour scheme
+"colorscheme atsleo
+colorscheme atsmolokai
+
+map ,n :unmap s<CR>:unmap j<CR>:unmap t<CR>:unmap k<CR>:unmap S<CR>:unmap T<CR>:unmap K<CR>
+map ,N :noremap s j<CR>:noremap j s<CR>:noremap t k<CR>:noremap k t<CR>:noremap S 5j<CR>:noremap T 5k<CR>:noremap K T<CR>
+
+" END /colemak/UserHome/_vimrc
+

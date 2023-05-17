@@ -1,0 +1,37 @@
+reset_expansion(){ CMD="$1";shift;$CMD "$@";set +f;}
+
+alias en='clear'
+alias ls='ls --color'
+alias st='ls'
+alias stt='ls -lah'
+alias enst='clear && ls'
+alias enstt='clear && ls -lah'
+alias z=exit
+alias cs=cd
+
+if command -v gvim &> /dev/null
+then
+    alias v=gvim
+else
+    alias v=vim
+fi
+
+alias d='find | grep -i'
+alias p='ping www.google.com'
+alias r='ps -A | grep'
+alias sudo='sudo '
+alias s='set -f;reset_expansion ~/bin/s'
+alias sf='set -f;reset_expansion ~/bin/sf'
+alias g='cd ~/depot/pathtools'
+alias gs='git status'
+alias ga='git add --all'
+alias gc='git commit'
+alias gd='git diff'
+alias n='git pull --rebase'
+
+stty werase undef
+bind '\C-w:unix-filename-rubout'
+bind '"\C-t":"\C-k\C-ucd ..\n"'
+
+export PATH=$PATH:~/bin
+stty stop ''

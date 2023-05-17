@@ -1,0 +1,13 @@
+
+[merge]
+	tool = bc3
+[diff]
+	tool = bc3
+[difftool "bc3"]
+	trustExitCode = true
+[mergetool "bc3"]
+	trustExitCode = true
+[credential]
+	helper = manager
+[core]
+	editor = gvim

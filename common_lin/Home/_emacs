@@ -1,0 +1,43 @@
+(add-to-list 'load-path "~/.emacs.d/evil")
+(add-to-list 'load-path "~/.emacs.d/color-theme")
+(require 'evil)
+(evil-define-motion evil-next-5lines (count)
+  "Move the cursor 5xCOUNT lines down."
+  :type line
+  (let (line-move-visual)
+    (evil-line-move (or count 5))))
+
+(evil-define-motion evil-previous-5lines (count)
+  "Move the cursor 5xCOUNT lines up."
+  :type line
+  (let (line-move-visual)
+    (evil-line-move (- (or count 5)))))
+
+(define-key evil-normal-state-map "s" nil)
+(define-key evil-normal-state-map "S" nil)
+(define-key evil-motion-state-map "s" 'evil-next-line)
+(define-key evil-motion-state-map "t" 'evil-previous-line)
+(define-key evil-motion-state-map "S" 'evil-next-5lines)
+(define-key evil-motion-state-map "T" 'evil-previous-5lines)
+(define-key evil-motion-state-map "k" 'evil-find-char-to)
+(define-key evil-motion-state-map "K" 'evil-find-char-to-backward)
+(evil-mode 1)
+
+;(defun w32-maximize-frame ()
+;  "Maximize the current frame"
+;  (interactive)
+;  (w32-send-sys-command 61488))
+
+;(add-hook 'window-setup-hook 'w32-maximize-frame t)
+
+(require 'color-theme)
+(color-theme-initialize)
+(color-theme-dark-laptop)
+
+(scroll-bar-mode -1)
+(menu-bar-mode -1)
+(tool-bar-mode -1)
+
+(global-set-key "\C-w" 'backward-kill-word)
+(global-set-key "\C-x\C-k" 'kill-region)
+(global-set-key "\C-c\C-k" 'kill-region)

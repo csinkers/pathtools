@@ -1,0 +1,230 @@
+" BEGIN /common/UserHome/_vimrc
+
+" About the first half of this vimrc is taken from the windows defaults and
+" slightly customised.
+set nocompatible
+set backspace=indent,eol,start whichwrap+=<,>,[,]
+set backup
+set history=50
+set ruler
+set showcmd
+set incsearch
+set mouse=a
+set expandtab
+set tabpagemax=50
+set completeopt=longest,menuone
+set hidden
+set shellxescape=
+set autoindent
+set guioptions-=a
+
+syntax on
+set hlsearch
+
+if has("autocmd")
+	autocmd GUIEnter * set visualbell t_vb=
+	filetype plugin indent on
+	augroup vimrcEx
+		au!
+		autocmd BufReadPost *
+					\ if line("'\"") > 0 && line("'\"") <= line("$") |
+					\ exe "normal! g`\"" |
+					\ endif
+	augroup END
+
+	au BufRead,BufNewFile *.man set filetype=xml
+	au BufRead,BufNewFile *.xaml set filetype=xml
+	au BufRead,BufNewFile *.hbm.xml set filetype=xml
+	au BufRead,BufNewFile *.json set filetype=jsonc
+	au BufRead,BufNewFile *.linq set filetype=cs
+	au BufRead,BufNewFile *.ua set filetype=c
+	au BufRead,BufNewFile *.hlsl set filetype=glsl
+else
+endif " has("autocmd")
+
+" command DiffOrig vert new | set bt=nofile | r # | 0d_ | diffthis | wincmd p | diffthis
+
+
+set diffexpr=MyDiff()
+function MyDiff()
+	let opt = '-a --binary '
+	if &diffopt =~ 'icase' | let opt = opt . '-i ' | endif
+	if &diffopt =~ 'iwhite' | let opt = opt . '-b ' | endif
+	let arg1 = v:fname_in
+	if arg1 =~ ' ' | let arg1 = '"' . arg1 . '"' | endif
+	let arg2 = v:fname_new
+	if arg2 =~ ' ' | let arg2 = '"' . arg2 . '"' | endif
+	let arg3 = v:fname_out
+	if arg3 =~ ' ' | let arg3 = '"' . arg3 . '"' | endif
+	let eq = ''
+	if $VIMRUNTIME =~ ' '
+		if &sh =~ '\<cmd'
+			let cmd = '""' . $VIMRUNTIME . '\diff"'
+			let eq = '"'
+		else
+			let cmd = substitute($VIMRUNTIME, ' ', '" ', '') . '\diff"'
+		endif
+	else
+		let cmd = $VIMRUNTIME . '\diff'
+	endif
+	silent execute '!' . cmd . ' ' . opt . arg1 . ' ' . arg2 . ' > ' . arg3 . eq
+endfunction
+
+" ------------------------------------ "
+"  More interesting stuff starts here  "
+" ------------------------------------ "
+
+" Better formatting etc
+set ts=4
+set sw=4
+set ignorecase
+set nowrap
+" By default edit as unicode (UTF-8) (A must for resx files etc)
+set encoding=UTF-8
+
+" Stop leaving files all over the place, keep our backups in a central
+" location
+if has("win32") || has("win16")
+    behave mswin
+    set backupdir=%USERPROFILE%\\backup
+    set directory=%USERPROFILE%\\backup
+    " Sort selection
+    map <F3> :!gsort<CR>
+    " Shows stats on unique rows
+    map <F7> :%!gsort<CR>:%!uniq -c<CR>:%!gsort -n -r<CR>
+else
+    set backupdir=~/.backup
+    set directory=~/.backup
+    " Sort selection
+    map <F3> :!sort<CR>
+    " Shows stats on unique rows
+    map <F7> :%!sort<CR>:%!uniq -c<CR>:%!sort -n -r<CR>
+endif
+
+" Various shortcuts
+
+" Unhighlight
+if has('win32')
+    nnoremap <ESC> :noh<CR><ESC>
+endif
+
+" Clear trailing whitespace
+map <F2> :%s/\s\+$//<CR>:noh<CR>''
+noremap <F2> :%s/\s*$//<CR>:noh<CR>''
+" Check out
+map <F4> :!p4 edit "%"<CR>
+" F5 reserved for make
+" Clear out boring db result rows
+map <F6> :%g/^(\d\+ rows\? affected)$/d<CR>
+" For reading xml, set up indenting nicely and then remove all closing tags
+" and then delete emptly lines. Only for reading, as it makes the xml invalid
+map ,X :%!xmllint --format --encode UTF-8 -<CR>:%s@<\/.*>@@g<CR>:%g/^\s*$/d<CR>
+" Reformat so xml is more readable
+map ,f :%!xmllint --format --encode UTF-8 -<CR>:set syntax=xml<CR>
+" Place xml back into its most compact form for saving
+map ,F :%!xmllint --noblanks --encode UTF-8 -<CR>
+map ,w :set wrap<CR>
+map ,W :set nowrap<CR>
+
+" Reformat json for readability
+map ,j :%s/{/\r{\r/g<CR>:%s/}/\r}/g<CR>:%s/,/,\r/g<CR>:noh<CR>ggVG=:set syntax=javascript<CR>:%g/^\s*$/d<CR>
+" HTML encode various characters
+map ,h :%s\/\Cç\/\&ccedil;/ge<CR>:%s/\Cé/\&eacute;/ge<CR>:%s/\Cè/\&egrave;/ge<CR>:%s/\Cê/\&ecirc;/ge<CR>:%s/\Cá/\&aacute;/ge<CR>:%s/\Cà/\&agrave;/ge<CR>:%s/\Câ/\&acirc;/ge<CR>:%s/\Có/\&oacute;/ge<CR>:%s/\Cò/\&ograve;/ge<CR>:%s/\Cô/\&ocirc;/ge<CR>:%s/\CÉ/\&Eacute;/ge<CR>:%s/\CÈ/\&Egrave;/ge<CR>:%s/\CÊ/\&Ecirc;/ge<CR>:%s/\CÁ/\&Aacute;/ge<CR>:%s/\CÀ/\&Agrave;/ge<CR>:%s/\CÂ/\&Acirc;/ge<CR>:%s/\CÓ/\&Oacute;/ge<CR>:%s/\CÒ/\&Ograve;/ge<CR>:%s/\CÔ/\&Ocirc;/ge<CR>:%s/\Cß/\&szlig;/ge<CR>:%s/\CÄ/\&Auml;/ge<CR>:%s/\CÖ/\&Ouml;/ge<CR>:%s/\CÜ/\&Uuml;/ge<CR>:%s/\Cä/\&auml;/ge<CR>:%s/\Cö/\&ouml;/ge<CR>:%s/\Cü/\&uuml;/ge<CR>
+
+" Reformat SQL for readability
+function FormatSql()
+    execute ':silent %s/\v<((left|right|full|cross|inner)\s*)?(outer\s*)?(join|apply)/\r\0/ge'
+    execute ':silent %s/\v<(from|where|order by|if|begin|end|declare|group by)>/\r\0/ge'
+    execute ':silent %s/\v(<(union all )?select>)\s*/\r\U\1\r/ge'
+    execute ':silent %s/\s\s\+/ /ge'
+    execute ':silent %s/\<AND /\r  \0/ge'
+    execute ':silent %s/,\s*/,\r/ge'
+    execute ':silent %g/ISNULL([^)]*,\s*$/j'
+    execute ':silent %g/ISNULL([^)]*,\s*$/j'
+    execute ':silent %g/ISNULL([^)]*,\s*$/j'
+    execute ':silent %g/ISNULL([^)]*,\s*$/j'
+    execute ':silent %g/SELECT/.+1,/^FROM/>'
+    execute ':silent %g/^\s*FROM/<'
+    execute ':silent %g/^\s*$/d'
+    execute ':set syntax=sql'
+    execute ':nohlsearch'
+endfunction
+
+map ,s :call FormatSql()<CR>
+
+" Vim style clipboard (copy, cut and paste respectively)
+if has("win32") || has("win16")
+    map ,y "*y
+    map ,d "*d
+    map ,p "*p
+    map ,P "*P
+else
+    map ,y "+y
+    map ,d "+d
+    map ,p "+p
+    map ,P "+P
+endif
+
+nmap <tab> <C-w><C-w>
+nmap <s-tab> <C-w>W
+
+nmap <c-tab> :bnext<cr>
+nmap <c-s-tab> :bprev<cr>
+map ,tt :tabnew<CR>
+map ,td :tabclose<CR>
+
+nnoremap ,, ,
+
+" Allow alt-space to pop up the system menu
+if has("gui") " System menu
+    noremap <M-Space> :simalt ~<CR>
+    inoremap <M-Space> <C-O>:simalt ~<CR>
+    cnoremap <M-Space> <C-O>:simalt ~<CR>
+endif
+
+" Execute entire buffer as an sql script
+nmap <Leader>sa :%DBExecRangeSQL<CR>
+vmap <S-Enter> <Plug>DBExecVisualSQL
+nmap ,e :%v/error/d<CR>:%g/0 error/d<CR>:%g/errorreport/d<CR>
+
+" Stop <C-U> and <C-W> destroying typed text in insert mode without the possibility of undo
+inoremap <c-u> <c-g>u<c-u>
+inoremap <c-w> <c-g>u<c-w>
+" Swap buffers between .cpp/.h etc
+noremap ,a :AT<CR>
+
+nnoremap î :cn<CR>
+nnoremap ð :cp<CR>
+nnoremap <M-n> :cn<CR>
+nnoremap <M-p> :cp<CR>
+
+" Use %% for full dirname of current file
+cabbr <expr> %% expand('%:p:h')
+
+set noerrorbells visualbell t_vb=
+set cursorline
+au BufNewFile,BufRead *.resx set filetype=xml
+au BufNewFile,BufRead *.cshtml set filetype=html
+
+let g:miniBufExplMapWindowNavVim    = 1
+let g:miniBufExplMapWindowNavArrows = 1
+let g:miniBufExplMapCTabSwitchBufs  = 1
+let g:miniBufExplModSelTarget       = 1
+let g:SuperTabLongestEnhanced       = 1
+let g:SuperTabDefaultCompletionType = "context"
+
+call plug#begin()
+if has('win32')
+    source ~/vimfiles/plugins.vim
+else
+    source ~/.vim/plugins.vim
+endif
+call plug#end()
+
+if has('win32')
+    source ~/vimfiles/config.vim
+else
+    source ~/.vim/config.vim
+endif
+
+" END /common/UserHome/_vimrc

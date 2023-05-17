@@ -1,0 +1,17 @@
+https://autohotkey.com/download/
+http://csinkers.com/dbg86.zip
+http://csinkers.com/dbg64.zip
+http://csinkers.com/ColemakCSinkers.zip
+https://download.sysinternals.com/files/ProcessExplorer.zip
+https://download.sysinternals.com/files/ProcessMonitor.zip
+
+Vim 8.1 64-bit:
+    http://csinkers.com/vim81_x64.zip (from https://tuxproject.de/projects/vim/)
+    https://www.python.org/ftp/python/3.7.1/python-3.7.1-amd64.exe
+
+https://github.com/Microsoft/perfview/releases
+
+junction
+WPT
+http://www.classicshell.net/downloads/
+

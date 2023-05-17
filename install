@@ -1,0 +1,66 @@
+#!/bin/bash
+
+# Rebuild each time
+if [ -d out ]; then
+    rm -r out
+fi
+mkdir out
+
+declare -a options=(
+    "common" 
+    "common_lin" 
+    "colemak" 
+    "dev" 
+    "local")
+
+for featureDir in "${options[@]}"
+do
+    if [ ! -d "$featureDir" ]; then continue; fi
+
+    # Make all directories
+    find "${featureDir}/." -type d |\
+        cut -c$((${#featureDir}+2))- |\
+        while read -d $'\n' subDir
+    do
+        mkdir -p "out/${subDir}"
+    done
+    
+    # Append all files
+    find "${featureDir}/." -type f |\
+        cut -c$((${#featureDir}+2))- |\
+        while read -d $'\n' file
+    do
+        cat "${featureDir}/${file}" >> "out/${file}"
+    done
+
+done
+
+# Hacky, find a better way?
+cp out/Home/_screenrc ~/.screenrc
+cp out/Home/_vimrc ~/.vimrc
+# cp out/Home/bashrc ~/.bashrc
+cp out/Home/.tridactylrc ~
+
+if [ ! -d ~/.backup ]; then mkdir ~/.backup; fi
+if [ ! -d ~/bin ]; then mkdir ~/bin; fi
+if [ -d ~/.vim ]; then rm -rf ~/.vim; fi
+mkdir ~/.vim
+
+if [ -x "$(which openbox)" ]; then
+    if [ ! -d ~/.config/openbox ]; then mkdir -p ~/.config/openbox; fi
+    cp out/Home/.config/openbox/lxde-pi-rc.xml ~/.config/openbox/
+    openbox --reconfigure
+fi
+
+chmod +x out/Path/*
+cp -r out/Path/* ~/bin
+cp -r out/Home/vimfiles/. ~/.vim
+cp out/Home/.tridactylrc ~
+
+declare scriptPath=$(readlink -f $(dirname $0))
+if ! grep -q ${scriptPath} ~/.bashrc; then
+    echo Adding bashrc reference...
+    echo source ${scriptPath}/out/Path/bashrc >>~/.bashrc
+fi
+vim +PlugClean +PlugInstall +qall
+

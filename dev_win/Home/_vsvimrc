@@ -1,0 +1,37 @@
+map ,y "*y
+map ,d "*d
+map ,p "*p
+map ,P "*P
+
+nnoremap K T
+nnoremap S 5j
+nnoremap T 5k
+nnoremap j s
+nnoremap k t
+nnoremap s j
+nnoremap t k
+
+onoremap K T
+onoremap S 5j
+onoremap T 5k
+onoremap j s
+onoremap k t
+onoremap s j
+onoremap t k
+
+xnoremap K T
+xnoremap S 5j
+xnoremap T 5k
+xnoremap j s
+xnoremap k t
+xnoremap s j
+xnoremap t k
+
+vnoremap K T
+vnoremap S 5j
+vnoremap T 5k
+vnoremap j s
+vnoremap k t
+vnoremap s j
+vnoremap t k
+

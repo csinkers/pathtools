@@ -1,0 +1,12 @@
+set hintfiltermode vimperator-reflow
+set hintchars 5432167890
+bind s scrollline
+bind t scrollline -1
+bind S scrollline 7
+bind T scrollline -7
+bind k fillcmdline tabopen
+bind K current_url tabopen
+bind q zoom 0.1 true
+bind c followpage prev
+bind v followpage next
+blacklistadd outlook.office.com

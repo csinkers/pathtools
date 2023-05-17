@@ -1,0 +1,38 @@
+nnoremap s j
+xnoremap s j
+onoremap s j
+vnoremap s j
+
+nnoremap j s
+xnoremap j s
+onoremap j s
+vnoremap j s
+
+nnoremap t k
+xnoremap t k
+onoremap t k
+vnoremap t k
+
+nnoremap k t
+xnoremap k t
+onoremap k t
+vnoremap k t
+
+nnoremap S 5j
+xnoremap S 5j
+onoremap S 5j
+vnoremap S 5j
+
+nnoremap T 5k
+xnoremap T 5k
+onoremap T 5k
+vnoremap T 5k
+
+nnoremap K T
+xnoremap K T
+onoremap K T
+vnoremap K T
+
+" Make zc toggle folds rather than close them
+noremap zc za 
+

@@ -1,0 +1,109 @@
+# If block
+snippet if
+	if (${1:/* condition */})
+	{
+			${2:/* code */}
+	}
+# while loop
+snippet while
+	while(${1:/* condition */})
+	{
+			${2:/* code */}
+	}
+# do while loop
+snippet do
+	do
+	{
+			${2:/* code */}
+	} while(${1:/* condition */})
+# for loop
+snippet for
+	for(${2:i} = 0;$2 < {$1:count}; $2${3:++})
+	{
+			${4:/* code */}
+	}
+# foreach loop
+snippet fe
+	foreach(var ${1:iterator} in {2:collection})
+	{
+			${3:/*code*/}
+	}
+# property
+snippet pr
+	${1:Type} ${2:Variable};
+	public $1 ${3:/* Property} 
+	{ 
+			get { return $2; } 
+			set { if($2 != value) { $2 = value; OnPropertyChanged("$3"); } }
+	}
+snippet lpr
+	${1:Type} ${2:_privateMember};
+	
+	/// <summary>
+	/// The $3 collection of this object.
+	/// </summary>
+	/// <exception cref="ArgumentNullException"/>
+	public virtual IList<$1> ${3:Collection}
+	{
+			get { return new ReadOnlyCollection<$1>($2); }
+	}
+
+	/// <summary>
+	/// Adds the $1.
+	/// </summary>
+	/// <param name="value">The value.</param>
+	/// <exception cref="ArgumentNullException"/>
+	public virtual void Add$1($1 value)
+	{
+			if (value == null)
+				 throw new ArgumentNullException("value");
+
+			if (!$2.Contains(value))
+			{
+				 $2.Add(value);
+				 /* value.ThisType = this; */
+			}
+	}
+
+	/// <summary>
+	/// Removes all site manufacturers.
+	/// </summary>
+	public virtual void RemoveAll$1()
+	{
+			if ($2 != null)
+				 $2.Clear();
+	}
+# Argument not empty
+snippet ane
+	if(${1:argument} == null)
+			throw new ArgumentNullException("$1");
+# Argument not empty and set
+snippet anes
+	if(${1:argument} == null)
+			throw new ArgumentNullException("$1");
+
+	_$1 = $1;
+
+# string not empty
+snippet sne
+	if(${1} != null && !string.IsNullOrEmpty($1))
+	{
+	}
+# string empty
+snippet se
+	if(${1} == null || string.IsNullOrEmpty($1))
+	{
+	}
+# function
+snippet fn
+	${1:void} ${2:FunctionName}(${3})
+	{
+			${4:/* code */}
+	}
+# public function
+snippet pfn
+	public ${1:void} ${2:FunctionName}(${3})
+	{
+			${4:/* code */}
+	}
+

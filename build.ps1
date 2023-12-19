@@ -10,7 +10,9 @@ $options = @(
     "colemak_win",
     "dev",
     "dev_win",
-    "local"
+    "local",
+    "..\personal-csinclair\pathtools\sc",
+    "..\personal-csinclair\pathtools\scdev"
 )
 
 foreach ($dirName in $options) {

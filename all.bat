@@ -1,4 +1,21 @@
 @echo off
+
+pushd ..
+if exist personal-csinclair goto repofound
+
+git clone https://shortcutssoftware@dev.azure.com/shortcutssoftware/Shortcuts/_git/personal-csinclair
+goto repodone
+
+:repofound
+pushd personal-csinclair
+git stash
+git pull
+git stash pop
+popd
+
+:repodone
+popd
+
 powershell -Command {Set-ExecutionPolicy -Scope CurrentUser -ExecutionPolicy Unrestricted}
 powershell -Command {Set-ExecutionPolicy -Scope LocalMachine -ExecutionPolicy Unrestricted}
 ::pause

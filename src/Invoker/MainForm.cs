@@ -38,6 +38,7 @@ namespace Invoker
             public int cbData;
             public IntPtr lpData;
         }
+
         protected override void WndProc(ref Message m)
         {
             if (m.Msg != WM_COPYDATA)
@@ -48,6 +49,7 @@ namespace Invoker
 
             var copyData = (COPYDATASTRUCT)m.GetLParam(typeof(COPYDATASTRUCT));
             string command = null;
+
             if (copyData.dwData == (UIntPtr)1) // ASCII string
             {
                 if (copyData.lpData != IntPtr.Zero)
@@ -58,12 +60,14 @@ namespace Invoker
                 if (copyData.lpData != IntPtr.Zero)
                     command = Marshal.PtrToStringUni(copyData.lpData, copyData.cbData / 2 - 1);
             }
-            else return;
+            else
+                return;
 
             if (string.IsNullOrWhiteSpace(command))
                 return;
 
             var (filename, arguments) = Split(command);
+
             try
             {
                 txtLog.AppendText(command + Environment.NewLine);
@@ -73,6 +77,7 @@ namespace Invoker
             {
                 MessageBox.Show($"Could not find {filename} on the path (arguments: {arguments})", "Invoker", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+
             m.Result = (IntPtr)1;
         }
 

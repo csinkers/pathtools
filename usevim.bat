@@ -1,7 +1,11 @@
 @echo off
+
+for /f "delims=" %%a in ('gnutools\Path\which.exe gvim') do @echo set VimPath="%%a"
+for /f "delims=" %%a in ('gnutools\Path\which.exe gvim') do @echo setx VimPath "%%a"
+for /f "delims=" %%a in ('gnutools\Path\which.exe gvim') do @set VimPath="%%a"
+for /f "delims=" %%a in ('gnutools\Path\which.exe gvim') do @setx VimPath "%%a"
+
 :: Fixup powershell:
-C:\Windows\SysWow64\cmd.exe /c powershell Set-ExecutionPolicy RemoteSigned
-C:\Windows\System32\cmd.exe /c powershell Set-ExecutionPolicy RemoteSigned
 ftype Microsoft.PowerShellScript.1="C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe" "%%1"
 git config --global merge.tool bc3
 git config --global diff.tool bc3
@@ -10,8 +14,8 @@ git config --global mergetool.bc3.trustexitcode true
 git config --global credential.helper manager
 git config --global core.editor gvim
 
-ftype vim="%PT%\installed\Vim\gvim.exe" "%%1"
-ftype textfile="%PT%\installed\Vim\gvim.exe" "%%1"
+ftype vim=%VIMPATH% "%%1"
+ftype textfile=%VIMPATH% "%%1"
 assoc .ascx=vim
 assoc .asm=vim
 assoc .aspx=vim

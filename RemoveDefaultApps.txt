@@ -22,3 +22,24 @@ Get-AppxPackage *soundrecorder* | Remove-AppxPackage
 Get-AppxPackage *bingweather* | Remove-AppxPackage
 Get-AppxPackage *xboxapp* | Remove-AppxPackage
 
+Disable telemetry:
+    gpedit.msc:
+        Computer Configuration 
+        > Administrative Templates 
+        > Windows Components 
+        > Data Collection and Preview Builds
+        "Allow Telemetry" -> Disable
+        for Win11: "Allow Diagnostic Data" -> Enabled, "Diagnostic data off (not recommended)"
+
+    taskschd.msc: 
+        Task Scheduler Library 
+        > Microsoft 
+        > Windows 
+        > Application Experience
+        Disable "Microsoft Compatibility Appraiser"
+
+    regedit:
+        HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\DataCollection
+        "AllowTelemetry" dword:0
+
+

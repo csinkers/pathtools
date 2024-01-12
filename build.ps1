@@ -11,8 +11,7 @@ $options = @(
     "dev",
     "dev_win",
     "local",
-    "..\personal-csinclair\pathtools\sc",
-    "..\personal-csinclair\pathtools\scdev"
+    "..\personal-csinclair\pathtools\sc"
 )
 
 foreach ($dirName in $options) {

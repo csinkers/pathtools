@@ -500,7 +500,7 @@ return
 	; Clear until character (like dt in vim)
 	^S::SendInput +{F4}
 	; Grab some text from the buffer
-	^T::SendInput !{Space}ek
+	; ^T::SendInput !{Space}ek
 	; Clear line
 	^U::Send, ^{End}^{Home}
 	; Paste from the clipboard

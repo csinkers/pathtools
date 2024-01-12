@@ -7,12 +7,13 @@ for /f "delims=" %%a in ('gnutools\Path\which.exe gvim') do @setx VimPath "%%a"
 
 :: Fixup powershell:
 ftype Microsoft.PowerShellScript.1="C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe" "%%1"
-git config --global merge.tool bc3
-git config --global diff.tool bc3
-git config --global difftool.bc3.trustexitcode true
-git config --global mergetool.bc3.trustexitcode true
+git config --global diff.tool bc
+git config --global merge.tool bc
+git config --global difftool.bc.path "c:/Program Files/Beyond Compare 4/bcomp.exe"
+git config --global mergetool.bc.path "c:/Program Files/Beyond Compare 4/bcomp.exe"
 git config --global credential.helper manager
 git config --global core.editor gvim
+git config --global difftool.prompt false
 
 ftype vim=%VIMPATH% "%%1"
 ftype textfile=%VIMPATH% "%%1"

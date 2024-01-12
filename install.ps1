@@ -1,5 +1,16 @@
 $outputDir = (Get-Item out\Path).FullName
 
+# Update powershell dependencies with ngen:
+$env:PATH = [Runtime.InteropServices.RuntimeEnvironment]::GetRuntimeDirectory()
+[AppDomain]::CurrentDomain.GetAssemblies() | ForEach-Object {
+    $path = $_.Location
+    if ($path) { 
+        $name = Split-Path $path -Leaf
+        Write-Host "`r`nRunning ngen.exe on '$name'"
+        ngen.exe install $path /nologo
+    }
+}
+
 # Add output directory to the path
 Function Add-PathDirectory {
     param([string]$pathToAdd)
@@ -79,7 +90,7 @@ if (Test-Path $enhancePath) {
 
 
 # Install vim plugins
-gvim +PlugClean +PlugInstall +qall
+gvim.exe +PlugClean +PlugInstall +qall
 
 # Install debugger plugins
 if (Test-Path "installed\x86") {

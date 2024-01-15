@@ -1,14 +1,17 @@
-
-[merge]
-	tool = bc3
-[diff]
-	tool = bc3
-[difftool "bc3"]
-	trustExitCode = true
-[mergetool "bc3"]
-	trustExitCode = true
 [credential]
 	helper = manager
 [core]
 	editor = gvim
+[diff]
+	tool = bc
+[merge]
+	tool = bc
+[difftool "bc"]
+    path=c:/Program Files/Beyond Compare 4/bcomp.exe
+[mergetool "bc"]
+    path=c:/Program Files/Beyond Compare 4/bcomp.exe
+[difftool]
+	prompt = false
+[pull]
+	rebase = true
 

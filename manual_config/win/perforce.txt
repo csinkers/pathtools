@@ -1,0 +1,10 @@
+C:\Program Files\Beyond Compare 4\BCompare.exe
+
+P4Win:
+     diff: %1 %2 /leftitle="%L" /rightitle="%R" /solo
+    merge: %2 %3 %1 %4 /leftitle="%T" /rightitle="%Y" /solo
+
+P4V:
+     diff: %1 %2 /leftitle="%L" /rightitle="%R" /solo
+    merge: %1 %2 %b %r
+

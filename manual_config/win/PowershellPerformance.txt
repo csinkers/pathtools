@@ -12,3 +12,8 @@ $env:PATH = [Runtime.InteropServices.RuntimeEnvironment]::GetRuntimeDirectory()
 # Check profiles for anything that might be slow:
 $profile | Select-Object -Property *
 
+
+# Check if transcription is trying to write to bad path:
+# HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\PowerShell\Transcription
+# Group Policy: Computer Configuration > Administrative Templates > Windows Components > Windows Powershell > Turn on PowerShell Transcription
+

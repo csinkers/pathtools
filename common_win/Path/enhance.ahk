@@ -485,7 +485,6 @@ return
 	; Open the output of something on the cmdline with gvim
 	^D::SendInput z{Enter}
 	^E::SendInput {End} 
-		;| putclip && fe getclip @start gvim{Enter}
 	; find something in the cmdline buffer
 	^/::SendInput !{Space}ef
 	; build a fe "whatever" @grep -isHI 
@@ -498,7 +497,7 @@ return
 	^Q::SendInput ^{Left} 
 	^R::SendInput {End}
 	; Clear until character (like dt in vim)
-	^S::SendInput +{F4}
+	;^S::SendInput +{F4}
 	; Grab some text from the buffer
 	; ^T::SendInput !{Space}ek
 	; Clear line

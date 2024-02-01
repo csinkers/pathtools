@@ -231,7 +231,7 @@ RButton Up::
     NWD_Dragging = 0
     DebugAppend("End Up")
     return
-;
+
 NWD_WindowHandler:
     SetWinDelay, -1
     CoordMode, Mouse, Screen
@@ -299,9 +299,9 @@ NWD_WindowHandler:
 ; #Space: WinSet, Style, ^0xC00000, A
 
 ; Hotkeys for a bunch of commonly used programs
+#s::RunViaInvoker("ssms") ; SQL Server Management Studio
 #g::Run super_rename.exe
 #q::Run regedit
-#s::RunViaInvoker("ssms") ; SQL Server Management Studio
 #x::Run services.msc
 #SC029::Run procexp
 
@@ -323,31 +323,26 @@ MinimiseClick() ; Override left side button. Navigate back in vis studio and bey
         Click X1
         return
     }
-    if(tempClass == "wndclass_desked_gsk")
-    {
-        IfInString, tempTitle, Visual
-        {
-            Send ^o ; Must have Ctrl-O set to navigate backwards in visual studio
-            return
-        }
-    }
-    if(tempClass == "TViewForm.UnicodeClass")
-    {
-        Click X1
-        return
-    }
-    IfInString, tempTitle, VMWare
-    {
-        Click X1
-        return
-    }
-    if(tempClass == "TSSHELLWND")
-    {
-        Click X1
-        return
-    }
-    WinMinimize, ahk_id %tempWin%
 
+    if(tempClass == "TViewForm.UnicodeClass") ; Beyond Compare
+    {
+        Click X1
+        return
+    }
+
+    IfInString, tempTitle, VMWare ; VMWare
+    {
+        Click X1
+        return
+    }
+
+    if(tempClass == "TSSHELLWND") ; mstsc / rdp client
+    {
+        Click X1
+        return
+    }
+
+    WinMinimize, ahk_id %tempWin%
     return
 }
 
@@ -366,6 +361,7 @@ CloseClick() ; Override right side button. Navigate forward in vis studio and be
         Click X2
         return
     }
+
     if(tempClass == "wndclass_desked_gsk")
     {
         IfInString, tempTitle, Visual
@@ -374,23 +370,26 @@ CloseClick() ; Override right side button. Navigate forward in vis studio and be
             return
         }
     }
-    if(tempClass == "TViewForm.UnicodeClass")
+
+    if(tempClass == "TViewForm.UnicodeClass") ; Beyond Compare
     {
         Click X2
         return
     }
+
     IfInString, tempTitle, VMWare
     {
         Click X2
         return
     }
-    if(tempClass == "TSSHELLWND")
+
+    if(tempClass == "TSSHELLWND") ; mstsc / rdp client
     {
         Click X2
         return
     }
-    WinClose, ahk_id %tempWin%
 
+    WinClose, ahk_id %tempWin%
     return
 }
 
@@ -425,38 +424,19 @@ $XButton2::
 return
 
 #a:: ; Run gvim
-; VisStudio #a hotkey currently disabled...
-; Run vim. If in visual studio then run vim and position the cursor to where vis studio is
-;WinGetClass, tempClass, A
-;WinGetTitle, tempTitle, A
-;if(tempClass == "wndclass_desked_gsk")
-;{
-;	IfInString, tempTitle, Visual ; Make sure it's vis studio, and not e.g. sql mgmt studio
-;	{
-;		Send ^g ; Ctrl-G must be set up in visual studio to run the external tool gvim
-				  ; with arguments: -c "normal $(CurLine)gg$(CurCol)|" $(ItemPath)
-;		return
-;	}
-;}
-Sleep 200
-RunViaInvoker("gvim.exe")
-;WinSet, Style, ^0xC00000, A
-;WinMove, A, , 0, 0, A_ScreenWidth/2, A_ScreenHeight
-return
-
-#t::  ; Make window tall (full vertical screen size)
-  WinGetPos,X,Y,W,H,A,,,
-  WinMove,A,,X,0,W,A_ScreenHeight
-  WinMove,A,,X,0
+    Sleep 200
+    RunViaInvoker("gvim.exe")
+    ;WinSet, Style, ^0xC00000, A
+    ;WinMove, A, , 0, 0, A_ScreenWidth/2, A_ScreenHeight
 return
 
 #f::WinSet, AlwaysOnTop, Toggle, A
 
 #d::
 IfWinExist Calculator
-	WinActivate Calculator
+    WinActivate Calculator
 else
-	RunViaInvoker("C:\Windows\System32\calc")
+    RunViaInvoker("C:\Windows\System32\calc")
 return
 
 ; For setting windows to left/right half of widescreen monitor
@@ -473,44 +453,154 @@ return
 	^W::SendInput ^{Backspace}
 	^X::SendInput {Home}^{Right}^{Backspace}
 
+ShouldHandleCmd()
+{
+	WinGetTitle, TmpTitle, A
+    IfInString, TmpTitle, cmd.exe
+    {
+        return 1
+    }
+    return 0
+}
+
 ; A whole bunch of hotkeys that make the windows command shell a lot nicer
 #IfWinActive ahk_class ConsoleWindowClass
 	; Scroll a page up/down
-	+PgUp::SendInput !{Space}el{PgUp}{Esc}
-	^B::SendInput !{Space}el{PgUp}{Esc}
-	+PgDn::SendInput !{Space}el{PgDn}{Esc}
-	^F::SendInput !{Space}el{PgDn}{Esc}
+	+PgUp::
+        if(ShouldHandleCmd())
+        {
+            SendInput !{Space}el{PgUp}{Esc}
+        }
+        return
+	+PgDn::
+        if(ShouldHandleCmd())
+        {
+            SendInput !{Space}el{PgDn}{Esc}
+        }
+        return
+	^B::
+        if(ShouldHandleCmd())
+        {
+            SendInput !{Space}el{PgUp}{Esc}
+        }
+        return
+	^F::
+        if(ShouldHandleCmd())
+        {
+            SendInput !{Space}el{PgDn}{Esc}
+        }
+        return
 
-	^A::SendInput {Home}
+	^A::
+        if(ShouldHandleCmd())
+        {
+            SendInput {Home}
+        }
+        return
 	; Open the output of something on the cmdline with gvim
-	^D::SendInput z{Enter}
-	^E::SendInput {End} 
+	^D::
+        if(ShouldHandleCmd())
+        {
+            SendInput z{Enter}
+        }
+        return
+	^E::
+        if(ShouldHandleCmd())
+        {
+            SendInput {End} 
+        }
+        return
 	; find something in the cmdline buffer
-	^/::SendInput !{Space}ef
+	^/::
+        if(ShouldHandleCmd())
+        {
+            SendInput !{Space}ef
+        }
+        return
 	; build a fe "whatever" @grep -isHI 
-	^K::SendInput | findstr /rinf:/{Space}
+	^K::
+        if(ShouldHandleCmd())
+        {
+            SendInput | findstr /rinf:/{Space}
+        }
+        return
 	; Clear screen
-	^L::SendInput {Esc}cls{Enter}
+	^L::
+        if(ShouldHandleCmd())
+        {
+            SendInput {Esc}cls{Enter}
+        }
+        return
 	; xargs substitute
-	^N::SendInput {End} | putclip && fe getclip @
+	^N::
+        if(ShouldHandleCmd())
+        {
+            SendInput {End} | putclip && fe getclip @
+        }
+        return
 	; Back a word
-	^Q::SendInput ^{Left} 
-	^R::SendInput {End}
+	^Q::
+        if(ShouldHandleCmd())
+        {
+            SendInput ^{Left} 
+        }
+        return
+	^R::
+        if(ShouldHandleCmd())
+        {
+            SendInput {End}
+        }
+        return
 	; Clear until character (like dt in vim)
 	;^S::SendInput +{F4}
 	; Grab some text from the buffer
 	; ^T::SendInput !{Space}ek
 	; Clear line
-	^U::Send, ^{End}^{Home}
+	^U::
+        if(ShouldHandleCmd())
+        {
+            Send, ^{End}^{Home}
+        }
+        return
 	; Paste from the clipboard
-	^V::SendInput !{Space}ep
+	^V::
+        if(ShouldHandleCmd())
+        {
+            SendInput !{Space}ep
+        }
+        return
 	; Delete a the word before the cursor
-	^W::SendInput ^{Left}+{F4}{Space}{Delete}
+	^W::
+        if(ShouldHandleCmd())
+        {
+            SendInput ^{Left}+{F4}{Space}{Delete}
+        }
+        return
 	; Delete the first word on the current cmdline
-	^X::SendInput {Home}+{F4}{Space}
-	^Z::SendInput {Esc}cd ..{Enter}
-	!B::SendInput ^{Left}
-	!F::SendInput ^{Right}
+	^X::
+        if(ShouldHandleCmd())
+        {
+            SendInput {Home}+{F4}{Space}
+        }
+        return
+	^Z::
+        if(ShouldHandleCmd())
+        {
+            SendInput {Esc}cd ..{Enter}
+        }
+        return
+	!B::
+        if(ShouldHandleCmd())
+        {
+            SendInput ^{Left}
+        }
+        return
+	!F::
+        if(ShouldHandleCmd())
+        {
+            SendInput ^{Right}
+        }
+        return
 	::cs ~::cd %USERPROFILE%
 #IfWinActive
 
@@ -519,34 +609,34 @@ return
 #IfWinActive
 
 #Return::
-WinGetClass, TmpClass, A
-if(TmpClass = "CabinetWClass")
-{
-	WinGetTitle, TmpTitle, A
-	Run powershell -NoExit -Command "& {Set-Location %TmpTitle%}"
-}
-else Run powershell -NoExit -Command "& {Set-Location C:\}"
+    WinGetClass, TmpClass, A
+    if(TmpClass = "CabinetWClass")
+    {
+        WinGetTitle, TmpTitle, A
+        Run powershell -NoExit -Command "& {Set-Location %TmpTitle%}"
+    }
+    else Run powershell -NoExit -Command "& {Set-Location C:\}"
 return
 
 #z:: ; Open command prompt. If an explorer window has focus, open in same dir.
-Sleep 200
-WinGetClass, TmpClass, A
-if(TmpClass = "CabinetWClass")
-{
-	WinGetTitle, TmpTitle, A
-	Run cmd /k a.bat "%TmpTitle%" ; /t:0a makes green on black colour scheme
-}
-else Run cmd /k a.bat C:\
+    Sleep 200
+    WinGetClass, TmpClass, A
+    if(TmpClass = "CabinetWClass")
+    {
+        WinGetTitle, TmpTitle, A
+        Run cmd /k a.bat "%TmpTitle%" ; /t:0a makes green on black colour scheme
+    }
+    else Run cmd /k a.bat C:\
 return
 
 #+z:: ; Open admin command prompt
-WinGetClass, TmpClass, A
-if(TmpClass = "CabinetWClass")
-{
-	WinGetTitle, TmpTitle, A
-	Run *RunAs "cmd.exe" /k a.bat "%TmpTitle%" ; /t:0a makes green on black colour scheme
-}
-else Run *RunAs "cmd.exe" /k a.bat C:\
+    WinGetClass, TmpClass, A
+    if(TmpClass = "CabinetWClass")
+    {
+        WinGetTitle, TmpTitle, A
+        Run *RunAs "cmd.exe" /k a.bat "%TmpTitle%" ; /t:0a makes green on black colour scheme
+    }
+    else Run *RunAs "cmd.exe" /k a.bat C:\
 return
 
 #1::Run C:\ ; Open some common directories
@@ -565,7 +655,7 @@ return
         return
 #IfWinActive
 
-#IfWinActive ahk_class AcrobatSDIWindow
+#IfWinActive ahk_class AcrobatSDIWindow ; Acrobat Reader
     s::Send {Down}
     t::Send {Up}
     +s::Send {Down 10}

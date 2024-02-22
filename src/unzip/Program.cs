@@ -44,8 +44,7 @@ namespace Unzip
 
         static void ExtractZip(string zipPath, string destDir)
         {
-            if (!Directory.Exists(destDir))
-                Directory.CreateDirectory(destDir);
+            Directory.CreateDirectory(destDir);
 
             using var stream = File.Open(zipPath, FileMode.Open, FileAccess.Read, FileShare.Read);
             using var zip = new ZipArchive(stream, ZipArchiveMode.Read);
@@ -53,6 +52,12 @@ namespace Unzip
             foreach (var entry in zip.Entries)
             {
                 var destPath = Path.Combine(destDir, entry.FullName);
+                if (string.IsNullOrEmpty(entry.Name) && entry.Length == 0) // Is it a directory entry?
+                {
+                    Directory.CreateDirectory(destPath);
+                    continue;
+                }
+
                 var destSubDir = Path.GetDirectoryName(destPath)!;
                 if (!Directory.Exists(destSubDir))
                     Directory.CreateDirectory(destSubDir);

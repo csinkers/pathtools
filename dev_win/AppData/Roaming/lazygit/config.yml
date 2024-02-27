@@ -3,3 +3,7 @@ customCommands:
     context: 'files'
     command: "git difftool --dir-diff --no-symlinks"
 
+  - key: '<f5>'
+    command: 'git fetch --prune'
+    context: 'localBranches'
+    stream: true

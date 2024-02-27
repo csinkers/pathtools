@@ -1,1 +1,1 @@
-@git log --pretty=format:"%%h%%x09%%an%%x09%%ad%%x09%%s"
+@git log --pretty=format:"%%h%%x09%%an%%x09%%ad%%x09%%s" %*

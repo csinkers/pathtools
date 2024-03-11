@@ -1,7 +1,7 @@
 customCommands:
   - key: '<f1>'
     context: 'files'
-    command: "git difftool --dir-diff --no-symlinks"
+    command: "git difftool --tool bc --dir-diff --no-symlinks"
 
   - key: '<f5>'
     command: 'git fetch --prune'

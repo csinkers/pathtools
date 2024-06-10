@@ -1,7 +1,10 @@
+# Configuring Git for Beyond Compare (one time setup):
+# git config --global difftool.bc.path "c:/Program Files/Beyond Compare 4/bcomp.exe"
+# git config --global mergetool.bc.path "c:/Program Files/Beyond Compare 4/bcomp.exe"
 customCommands:
   - key: '<f1>'
     context: 'files'
-    command: "git difftool --tool bc --dir-diff --no-symlinks"
+    command: "git difftool --dir-diff --no-symlinks --tool bc"
 
   - key: '<f5>'
     command: 'git fetch --prune'

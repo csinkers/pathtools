@@ -1,8 +1,11 @@
 {
-    "workbench.colorTheme": "Visual Studio 2019 Dark",
-    "editor.fontSize": 18,
+    "workbench.colorTheme": "Default Dark Modern",
+    "editor.fontSize": 16,
     "omnisharp.enableDecompilationSupport": true,
     "omnisharp.enableRoslynAnalyzers": true,
+    "vim.handleKeys": {
+        "<C-p>": false
+    },
     "vim.normalModeKeyBindingsNonRecursive": [
         { "before": ["s"], "after": ["j"] },
         { "before": ["t"], "after": ["k"] },

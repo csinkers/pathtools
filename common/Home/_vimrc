@@ -231,4 +231,7 @@ else
     source ~/.vim/config.vim
 endif
 
+" example connection string:
+" let g:dbext_default_profile_pos = 'type=SQLSRV:user=sa:passwd=Pa$$w0rd:srvname=localhost\ShortcutsPOS:dbname=ShortcutsPOS'
+
 " END /common/UserHome/_vimrc

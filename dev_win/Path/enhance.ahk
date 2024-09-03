@@ -14,6 +14,10 @@
         RunViaInvoker("""C:\Program Files (x86)\Microsoft Visual Studio 9.0\Common7\IDE\devenv.exe""")
     Return
 
+#8::
+    Run "C:\Program Files (x86)\Microsoft Visual Studio 9.0\Common7\IDE\devenv.exe"
+    Return
+
 #w::
     if FileExist("C:\Program Files\Beyond Compare 4\BCompare.exe")
         RunViaInvoker("""C:\Program Files\Beyond Compare 4\BCompare.exe""")

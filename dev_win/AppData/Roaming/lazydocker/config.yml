@@ -1,0 +1,10 @@
+customCommands:
+  containers:
+  - name: update apt
+    attach: true
+    command: docker exec -it -u 0 {{ .Container.ID }} apt-get update
+    serviceNames: []
+  - name: install debug tools
+    attach: true
+    command: docker exec -it -u 0 {{ .Container.ID }} apt-get install -y htop net-tools vim
+    serviceNames: []

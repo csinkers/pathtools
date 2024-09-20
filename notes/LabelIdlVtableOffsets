@@ -1,0 +1,2 @@
+:%s/\[id(0x\([0-9a-f]\+\)/\=printf("O:%x %s", str2nr(submatch(1), 16)*4, submatch(0))/
+ZZ

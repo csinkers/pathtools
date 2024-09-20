@@ -1,0 +1,7 @@
+Rename symbol:
+    getSymbolAt(toAddr(0x12341234)).setName("New name", ghidra.program.model.symbol.SourceType.USER_DEFINED)
+
+Define function:
+    createFunction(toAddr(0x12341234), "FunctionName")
+
+

@@ -58,5 +58,13 @@ colorscheme atsmolokai
 map ,n :unmap s<CR>:unmap j<CR>:unmap t<CR>:unmap k<CR>:unmap S<CR>:unmap T<CR>:unmap K<CR>
 map ,N :noremap s j<CR>:noremap j s<CR>:noremap t k<CR>:noremap k t<CR>:noremap S 5j<CR>:noremap T 5k<CR>:noremap K T<CR>
 
+" Given a Ghidra listing extract, generate a python script to define all
+" labels as functions
+function GH_Funcs()
+    %v/\<LAB_/d
+    %s/.*\<LAB_\([0-9a-f]\+\).*/\1
+    %s/.*/createFunction(toAddr(0x\0), "FUN_\0")/
+endfunction
+
 " END /colemak/UserHome/_vimrc
 

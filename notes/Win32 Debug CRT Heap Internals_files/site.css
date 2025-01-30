@@ -1,0 +1,64 @@
+body {
+  font-family: Verdana, "Bitstream Vera Sans", sans-serif;
+  background-color: #eeeeee;
+}
+
+.container {
+  background-color: white;
+}
+
+
+/* Headings
+ * --------------------------------------------------------------------- */
+h1,h2,h3,h4,h5,h6 { color: #4c94b7; }
+
+/* Text Elements
+ * --------------------------------------------------------------------- */
+a                 { color: #125AA7; }
+a:hover           { color: #000; }
+blockquote        { color: #666; }
+
+pre {
+  background: #eee;
+  border:     1px solid #ddd;
+}
+
+hr {
+  background: #B2CCFF;
+  color:      #B2CCFF;
+}
+
+/* Tables
+ * --------------------------------------------------------------------- */
+table {
+  border-top:     1px solid #ddd;
+  border-left:    1px solid #ddd;
+}
+th,td {
+  border-bottom:  1px solid #ddd;
+  border-right:   1px solid #ddd;
+}
+
+/* Default Classes
+ * --------------------------------------------------------------------- */
+p.quiet { color: #666; }
+.alt    { color: #666; }
+
+p.title {
+  color: #111;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 2em;
+  margin-bottom: 0.75em;
+}
+p.title a:link { text-decoration: none }
+p.title a:visited { text-decoration: none }
+p.title a:active { text-decoration: none }
+p.title a:hover { text-decoration: underline; color: red }
+
+#header p.title { font-size: 1em; line-height: 1; margin-bottom: 0.5em; }
+
+dd { margin-bottom: 1em; }
+
+.highlight {background:#ded;}
+/* EOF */
+

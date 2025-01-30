@@ -35,6 +35,8 @@ if has("autocmd")
 	au BufRead,BufNewFile *.man set filetype=xml
 	au BufRead,BufNewFile *.xaml set filetype=xml
 	au BufRead,BufNewFile *.hbm.xml set filetype=xml
+	au BufRead,BufNewFile *.csproj set filetype=xml
+	au BufRead,BufNewFile *.fsproj set filetype=xml
 	au BufRead,BufNewFile *.json set filetype=jsonc
 	au BufRead,BufNewFile *.linq set filetype=cs
 	au BufRead,BufNewFile *.ua set filetype=c

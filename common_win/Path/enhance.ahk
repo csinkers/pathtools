@@ -608,35 +608,61 @@ ShouldHandleCmd()
 	^Z::SendInput ^ucd ..{Enter}
 #IfWinActive
 
-#Return::
+GetActiveExplorerTab(hwnd:="") {
+	static IID_IShellBrowser := "{000214E2-0000-0000-C000-000000000046}"
+
+    activeTab := 0, hwnd := hwnd ? hwnd : WinExist("A")
+	try
+		ControlGet, activeTab, Hwnd,, ShellTabWindowClass1, ahk_id %hwnd%	; File Explorer (Windows 11)
+    catch
+	try
+		ControlGet, activeTab, Hwnd,, TabWindowClass1, ahk_id %hwnd%	; IE
+    for w in ComObjCreate("Shell.Application").Windows {
+        if (w.hwnd != hwnd)
+            continue
+        if (activeTab) { ; The window has tabs, so make sure this is the right one.
+			shellBrowser := ComObjQuery(w, IID_IShellBrowser, IID_IShellBrowser)
+            DllCall(NumGet(NumGet(shellBrowser+0), 3*A_PtrSize), "UPtr",shellBrowser, "UIntP",thisTab:=0)
+            if (thisTab != activeTab)
+                continue
+        }
+        return w
+    }
+}
+
+GetActiveExplorerPath() {
     WinGetClass, TmpClass, A
+    TmpPath = "C:\"
     if(TmpClass = "CabinetWClass")
     {
-        WinGetTitle, TmpTitle, A
-        Run powershell -NoExit -Command "& {Set-Location %TmpTitle%}"
+        tab := GetActiveExplorerTab()
+        switch ComObjType(tab.Document, "Class")
+        {
+            case "ShellFolderView":
+                TmpPath := tab.Document.Folder.Self.Path
+            default: ;case "HTMLDocument":
+                TmpPath := % tab.LocationURL
+        }
     }
-    else Run powershell -NoExit -Command "& {Set-Location C:\}"
+    return TmpPath
+}
+
+#Return::
+    WinGetClass, TmpClass, A
+    TmpPath := GetActiveExplorerPath()
+    Run powershell -NoExit -Command "& {Set-Location %TmpPath%}"
 return
 
 #z:: ; Open command prompt. If an explorer window has focus, open in same dir.
     Sleep 200
-    WinGetClass, TmpClass, A
-    if(TmpClass = "CabinetWClass")
-    {
-        WinGetTitle, TmpTitle, A
-        Run cmd /k a.bat "%TmpTitle%" ; /t:0a makes green on black colour scheme
-    }
-    else Run cmd /k a.bat C:\
+    TmpPath := GetActiveExplorerPath()
+    Run cmd /k a.bat "%TmpPath%"
 return
 
 #+z:: ; Open admin command prompt
-    WinGetClass, TmpClass, A
-    if(TmpClass = "CabinetWClass")
-    {
-        WinGetTitle, TmpTitle, A
-        Run *RunAs "cmd.exe" /k a.bat "%TmpTitle%" ; /t:0a makes green on black colour scheme
-    }
-    else Run *RunAs "cmd.exe" /k a.bat C:\
+    Sleep 200
+    TmpPath := GetActiveExplorerPath()
+    Run *RunAs "cmd.exe" /k a.bat "%TmpPath%"
 return
 
 #1::Run C:\ ; Open some common directories

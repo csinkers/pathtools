@@ -1,0 +1,19 @@
+Debug startup:
+Instead of running with --detach / -d, run with -it (--interactive --tty)
+and add this line to the Dockerfile: ENTRYPOINT [ "/bin/sh" ]
+Useful to add --rm to auto-cleanup container after the session.
+Run as root with -u 0
+
+e.g.
+docker run --rm -it [options] <container>
+
+Debug running container:
+docker exec -it -u 0 CONTAINER_NAME /bin/bash
+
+apt-get update
+apt-get install htop net-tools sudo
+
+apk add htop vim sudo
+
+View logs from startup attempts:
+docker logs --tail 50 --follow --timestamps CONTAINER_NAME

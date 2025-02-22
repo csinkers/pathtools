@@ -130,7 +130,7 @@ ShouldIgnoreWindow(wclass, procName)
         return 1
     if (wclass = "ATL:ScrapFrame") 
         return 1
-    if (wclass = "SDL_app")
+    if (wclass = "SDL_app" and procName != "Repos.exe")
         return 1
     if (procName = "RDCMan.exe")
         return 1

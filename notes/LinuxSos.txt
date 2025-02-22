@@ -1,0 +1,4 @@
+install lldb
+dotnet tool install -g dotnet-sos
+dotnet-sos install (or ~/.dotnet/tools/dotnet-sos install)
+

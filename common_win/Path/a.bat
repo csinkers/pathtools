@@ -4,6 +4,7 @@ doskey .z=start . ^& exit
 doskey d=dir /s /b $* 
 doskey z=exit 
 doskey v=gvim $*
+doskey ps=powershell
 
 SET PT=%~dp0..\..
 :: Navigate to explorer window path

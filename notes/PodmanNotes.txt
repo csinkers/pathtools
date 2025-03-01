@@ -1,0 +1,2 @@
+Start all containers: podman start --all --filter restart-policy=always
+

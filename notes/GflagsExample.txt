@@ -1,0 +1,5 @@
+GFlags debugger:
+C:\Depot\bb\pathtools\installed\x86\cdb.exe -server tcp:port=9191
+
+Connect:
+C:\Depot\bb\pathtools\installed\x86\windbg.exe -remote tcp:port=9191

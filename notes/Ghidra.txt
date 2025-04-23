@@ -4,4 +4,13 @@ Rename symbol:
 Define function:
     createFunction(toAddr(0x12341234), "FunctionName")
 
+Keybinds:
+  X: Edit Function Signature (DecompilePlugin)
+  Z: Edit Data Type (DataPlugin, DecompilePlugin)
+
+Show register names in disassembly:
+  Edit > Tool Options > Listing Fields > Operands Field
+  [X] Always Show Primary Reference
+  [ ] Markup Inferred Variable References
+  [ ] Markup Register Variable References
 

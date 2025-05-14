@@ -61,7 +61,7 @@ WinGet, CurStyle, Style, A
 WinGet, CurProc, ProcessName, A
 if(TmpClass = "TscShellContainerClass" && (CurStyle & 0x00C00000 = 0) || CurProc = "RDCMan.exe") ; 0x00c00000 = WS_CAPTION
 {
-	return
+    return
 }
 Send {Backspace}
 return

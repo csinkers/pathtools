@@ -25,9 +25,9 @@ SetControlDelay, 0
 ;global PendingOperator := ""
 ;
 
-DebugAppend(Data) 
+DebugAppend(Data)
 {
-    Return 
+    Return
 }
 
 ;Gui, Add, Edit, x10 y10 w200 h600 vDebug
@@ -106,29 +106,29 @@ Return
 ShouldIgnoreWindow(wclass, procName)
 {
 
-    if (wclass = "Progman") 
+    if (wclass = "Progman")
         return 1
-    if (wclass = "OpWindow") 
+    if (wclass = "OpWindow")
         return 1
-    if (wclass = "Calculator") 
+    if (wclass = "Calculator")
         return 1
-    if (wclass = "ATL:ExplorerFrame") 
+    if (wclass = "ATL:ExplorerFrame")
         return 1
-    if (wclass = "VMUIView") 
+    if (wclass = "VMUIView")
         return 1
-    if (wclass = "VMUIFrame") 
+    if (wclass = "VMUIFrame")
         return 1
-    if (wclass = "MKSEmbedded") 
+    if (wclass = "MKSEmbedded")
         return 1
-    if (wclass = "TSSHELLWND") 
+    if (wclass = "TSSHELLWND")
         return 1
-    if (wclass = "OPContainerClass") 
+    if (wclass = "OPContainerClass")
         return 1
-    if (wclass = "TscShellContainerClass") 
+    if (wclass = "TscShellContainerClass")
         return 1
-    if (wclass = "UIContainerClass") 
+    if (wclass = "UIContainerClass")
         return 1
-    if (wclass = "ATL:ScrapFrame") 
+    if (wclass = "ATL:ScrapFrame")
         return 1
     if (wclass = "SDL_app" and procName != "Repos.exe")
         return 1
@@ -138,8 +138,8 @@ ShouldIgnoreWindow(wclass, procName)
 }
 
 ; Big wodge of code to get RMB drag to be useful. Resizes/moves windows. (Adapted from NiftyWindows)
-; ---------------- BEGIN CODE ADAPTED FROM NiftyWindows ---------------- 
-RButton:: 
+; ---------------- BEGIN CODE ADAPTED FROM NiftyWindows ----------------
+RButton::
     Critical
     DebugAppend("Begin Down")
     NWD_ResizeGrids = 5
@@ -200,7 +200,7 @@ RButton::
         NWD_ResizeX = 0
         NWD_ResizeY = 0
     }
-    
+
     ; TODO : this is a workaround (checks for popup window) for the activation
     ; bug of AutoHotkey -> can be removed as soon as the known bug is fixed
     If (!((NWD_WinStyle & 0x80000000) and !(NWD_WinStyle & 0x4C0000)))
@@ -221,7 +221,7 @@ RButton Up::
     CoordMode, Mouse, Screen
     SetTimer, NWD_WindowHandler, Off
     MouseGetPos, NWD_MouseX, NWD_MouseY
-    
+
     DebugAppend("RButton Up @ " . NWD_MouseX . ", " . NWD_MouseY)
     If (NWD_IgnoreWindow)
         MouseClick, RIGHT, %NWD_MouseX%, %NWD_MouseY%, , , U
@@ -272,7 +272,7 @@ NWD_WindowHandler:
                 NWD_WinNewW := 0
             If (NWD_WinNewH < 0)
                 NWD_WinNewH := 0
-            
+
             NWD_WinDeltaX = 0
             NWD_WinDeltaY = 0
             If (NWD_ResizeX = -1)
@@ -282,18 +282,18 @@ NWD_WindowHandler:
             NWD_WinNewX := NWD_WinStartX + NWD_WinDeltaX
             NWD_WinNewY := NWD_WinStartY + NWD_WinDeltaY
         }
-        
+
         Transform, NWD_WinNewX, Round, %NWD_WinNewX%, 0
         Transform, NWD_WinNewY, Round, %NWD_WinNewY%, 0
         Transform, NWD_WinNewW, Round, %NWD_WinNewW%, 0
         Transform, NWD_WinNewH, Round, %NWD_WinNewH%, 0
-        
+
         If ((NWD_WinNewX != NWD_WinX) or (NWD_WinNewY != NWD_WinY) or (NWD_WinNewW != NWD_WinW) or (NWD_WinNewH != NWD_WinH))
             WinMove, ahk_id %NWD_WinID%, , %NWD_WinNewX%, %NWD_WinNewY%, %NWD_WinNewW%, %NWD_WinNewH%
     }
     Return
 ;
-; ---------------- END CODE ADAPTED FROM NiftyWindows ---------------- 
+; ---------------- END CODE ADAPTED FROM NiftyWindows ----------------
 
 ; Toggle the title bar of a window
 ; #Space: WinSet, Style, ^0xC00000, A
@@ -450,12 +450,12 @@ return
 
 ; Powershell overrides for console hotkeys that need old-style readline.
 #IfWinActive ahk_exe powershell.exe
-	^W::SendInput ^{Backspace}
-	^X::SendInput {Home}^{Right}^{Backspace}
+    ^W::SendInput ^{Backspace}
+    ^X::SendInput {Home}^{Right}^{Backspace}
 
 ShouldHandleCmd()
 {
-	WinGetTitle, TmpTitle, A
+    WinGetTitle, TmpTitle, A
     IfInString, TmpTitle, cmd.exe
     {
         return 1
@@ -463,165 +463,181 @@ ShouldHandleCmd()
     return 0
 }
 
+; Windows Terminal
+#IfWinActive ahk_class CASCADIA_HOSTING_WINDOW_CLASS
+    ^D::
+        SendInput +{Home}{Backspace}exit{Enter}
+        return
+    ^W::
+        SendInput ^+{Left}{Backspace}
+        return
+    ^U::
+        SendInput +{Home}{Backspace}
+        return
+    ^Z::
+        SendInput {Esc}cd ..{Enter}
+        return
+#IfWinActive
+
 ; A whole bunch of hotkeys that make the windows command shell a lot nicer
 #IfWinActive ahk_class ConsoleWindowClass
-	; Scroll a page up/down
-	+PgUp::
+    ; Scroll a page up/down
+    +PgUp::
         if(ShouldHandleCmd())
         {
             SendInput !{Space}el{PgUp}{Esc}
         }
         return
-	+PgDn::
+    +PgDn::
         if(ShouldHandleCmd())
         {
             SendInput !{Space}el{PgDn}{Esc}
         }
         return
-	^B::
+    ^B::
         if(ShouldHandleCmd())
         {
             SendInput !{Space}el{PgUp}{Esc}
         }
         return
-	^F::
+    ^F::
         if(ShouldHandleCmd())
         {
             SendInput !{Space}el{PgDn}{Esc}
         }
         return
 
-	^A::
+    ^A::
         if(ShouldHandleCmd())
         {
             SendInput {Home}
         }
         return
-	; Open the output of something on the cmdline with gvim
-	^D::
+    ; Open the output of something on the cmdline with gvim
+    ^D::
         if(ShouldHandleCmd())
         {
             SendInput z{Enter}
         }
         return
-	^E::
-        if(ShouldHandleCmd())
-        {
-            SendInput {End} 
-        }
-        return
-	; find something in the cmdline buffer
-	^/::
-        if(ShouldHandleCmd())
-        {
-            SendInput !{Space}ef
-        }
-        return
-	; build a fe "whatever" @grep -isHI 
-	^K::
-        if(ShouldHandleCmd())
-        {
-            SendInput | findstr /rinf:/{Space}
-        }
-        return
-	; Clear screen
-	^L::
-        if(ShouldHandleCmd())
-        {
-            SendInput {Esc}cls{Enter}
-        }
-        return
-	; xargs substitute
-	^N::
-        if(ShouldHandleCmd())
-        {
-            SendInput {End} | putclip && fe getclip @
-        }
-        return
-	; Back a word
-	^Q::
-        if(ShouldHandleCmd())
-        {
-            SendInput ^{Left} 
-        }
-        return
-	^R::
+    ^E::
         if(ShouldHandleCmd())
         {
             SendInput {End}
         }
         return
-	; Clear until character (like dt in vim)
-	;^S::SendInput +{F4}
-	; Grab some text from the buffer
-	; ^T::SendInput !{Space}ek
-	; Clear line
-	^U::
+    ; find something in the cmdline buffer
+    ^/::
         if(ShouldHandleCmd())
         {
-            Send, ^{End}^{Home}
+            SendInput !{Space}ef
         }
         return
-	; Paste from the clipboard
-	^V::
+    ; build a fe "whatever" @grep -isHI
+    ^K::
         if(ShouldHandleCmd())
         {
-            SendInput !{Space}ep
+            SendInput | findstr /rinf:/{Space}
         }
         return
-	; Delete a the word before the cursor
-	^W::
+    ; Clear screen
+    ^L::
         if(ShouldHandleCmd())
         {
-            SendInput ^{Left}+{F4}{Space}{Delete}
+            SendInput {Esc}cls{Enter}
         }
         return
-	; Delete the first word on the current cmdline
-	^X::
+    ; xargs substitute
+    ^N::
         if(ShouldHandleCmd())
         {
-            SendInput {Home}+{F4}{Space}
+            SendInput {End} | putclip && fe getclip @
         }
         return
-	^Z::
-        if(ShouldHandleCmd())
-        {
-            SendInput {Esc}cd ..{Enter}
-        }
-        return
-	!B::
+    ; Back a word
+    ^Q::
         if(ShouldHandleCmd())
         {
             SendInput ^{Left}
         }
         return
-	!F::
+    ^R::
+        if(ShouldHandleCmd())
+        {
+            SendInput {End}
+        }
+        return
+    ; Clear until character (like dt in vim)
+    ;^S::SendInput +{F4}
+    ; Grab some text from the buffer
+    ; ^T::SendInput !{Space}ek
+    ; Clear line
+    ^U::
+        if(ShouldHandleCmd())
+        {
+            Send, ^{End}^{Home}
+        }
+        return
+    ; Paste from the clipboard
+    ^V::
+        if(ShouldHandleCmd())
+        {
+            SendInput !{Space}ep
+        }
+        return
+    ; Delete a the word before the cursor
+    ^W::
+        if(ShouldHandleCmd())
+        {
+            SendInput ^{Left}+{F4}{Space}{Delete}
+        }
+        return
+    ; Delete the first word on the current cmdline
+    ^X::
+        if(ShouldHandleCmd())
+        {
+            SendInput {Home}+{F4}{Space}
+        }
+        return
+    ^Z::
+        if(ShouldHandleCmd())
+        {
+            SendInput {Esc}cd ..{Enter}
+        }
+        return
+    !B::
+        if(ShouldHandleCmd())
+        {
+            SendInput ^{Left}
+        }
+        return
+    !F::
         if(ShouldHandleCmd())
         {
             SendInput ^{Right}
         }
         return
-	::cs ~::cd %USERPROFILE%
+    ::cs ~::cd %USERPROFILE%
 #IfWinActive
 
 #IfWinActive ahk_class PuTTY
-	^Z::SendInput ^ucd ..{Enter}
+    ^Z::SendInput ^ucd ..{Enter}
 #IfWinActive
 
 GetActiveExplorerTab(hwnd:="") {
-	static IID_IShellBrowser := "{000214E2-0000-0000-C000-000000000046}"
+    static IID_IShellBrowser := "{000214E2-0000-0000-C000-000000000046}"
 
     activeTab := 0, hwnd := hwnd ? hwnd : WinExist("A")
-	try
-		ControlGet, activeTab, Hwnd,, ShellTabWindowClass1, ahk_id %hwnd%	; File Explorer (Windows 11)
+    try
+        ControlGet, activeTab, Hwnd,, ShellTabWindowClass1, ahk_id %hwnd%   ; File Explorer (Windows 11)
     catch
-	try
-		ControlGet, activeTab, Hwnd,, TabWindowClass1, ahk_id %hwnd%	; IE
+    try
+        ControlGet, activeTab, Hwnd,, TabWindowClass1, ahk_id %hwnd%    ; IE
     for w in ComObjCreate("Shell.Application").Windows {
         if (w.hwnd != hwnd)
             continue
         if (activeTab) { ; The window has tabs, so make sure this is the right one.
-			shellBrowser := ComObjQuery(w, IID_IShellBrowser, IID_IShellBrowser)
+            shellBrowser := ComObjQuery(w, IID_IShellBrowser, IID_IShellBrowser)
             DllCall(NumGet(NumGet(shellBrowser+0), 3*A_PtrSize), "UPtr",shellBrowser, "UIntP",thisTab:=0)
             if (thisTab != activeTab)
                 continue

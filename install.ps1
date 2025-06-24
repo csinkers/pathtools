@@ -90,7 +90,6 @@ if (Test-Path $enhancePath) {
     }
 }
 
-
 # Install vim plugins
 $env:path
 gvim.exe +PlugClean +PlugInstall +qall

@@ -1,0 +1,73 @@
+
+Armour | Heavy              | Light              | Martial            | Ranged             | Stealth
+-------+--------------------+--------------------+--------------------+--------------------+-----------------
+Head   | Crab Helmet        | Crab Helmet        | Crab Helmet        | Iron Hat           | Swamp Ninja Mask
+Body   | Samurai Armour     | Assassin's Rags    | Assassin's Rags    | Assassin's Rags    | Assassin's Rags/Ninja Rags
+Shirt  | Leather Turtleneck | Leather Turtleneck | Leather Turtleneck | Leather Turtleneck | Dark Leather Shift
+Leg    | Samurai Legplates  | Samurai Legplates  | Armoured Rag Skirt | Samurai Clothpants | Samurai Clothpants/Ninja Pants
+Foot   | Samurai Boots      | Samurai Boots      | Wooden Sandals     | Wooden Sandals     | Wooden Sandals
+
+
+Heavy: Lots of protection, assault towns, fight animals.
+Light: High damage. Weak against ranged groups & animals.
+Martial: Like light, but only better at high levels (90+)
+Ranged: Good to dual w/ martial (swap hat) or even add stealth
+
+
+Crab Armour good against animals.
+Chain is bad, only good shirts are LTurtle + DarkL. DarkL better w/ robo limbs.
+
+
+Katanas: Nodachi good
+Sabre: Desert high dam, esp vs spiders. Foreign Sabre v good defense. Longsword good balance.
+Hackers: Bit shit.
+Blunt: Quite shit. Jitte is best, then spiked club.
+Heavy: Plank best w/o roboarms. Frag ax w/ robo.
+Martial: Need high tough+str.
+Polearms: Staff+naginata can hit many enemies, easy to use for low level. Good for base defense / farmers etc
+
+
+7
+1x Nodachi light
+1x Plank heavy
+1x Polearm light
+1x Sneakyboi/ranged
+2x ranged/martial
+1x ranged
+
+Town:
+Research/engineering/misc work/trading
+Cooks/Brewers
+Farmers/Labourers
+Gunners
+
+
+Citizen        : Stealth katana : Eng, Sci, Farm
+Molly          :                : Cook, Brew
+Oron           :                : Weapons
+Ruka           :                : Labour
+Voth           :                : Farm
+Fuumin         :                : Farm, Medic
+Rane the Giant : Tanky?         : Armour
+
+Mods:
+    Dark UI
+    Slopeless
+    Better Crop Fences
+    256 recruit limit
+    Recruitable prisoners
+    Capes
+    Nomads expanded
+    Trading expanded
+    Weapon Scale
+    NCE
+    Skeleton resized
+    Metallic weapons
+    Less clutter
+    Swamp buildings
+    Stackable items
+    Martial Arts: Always Attack
+    Martial Arts: Fast Dodger
+    Double Gate HP
+
+

@@ -712,5 +712,10 @@ return
     ^B::Send, +{Space}
 #IfWinActive
 
+#Insert::
+    Send ^{Insert}
+    Run TestResultDiff.exe
+    Return
+
 !Pause::Suspend
 ; END /common_win/Path/enhance.ahk

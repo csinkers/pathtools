@@ -1,0 +1,3 @@
+! Google Login Popup
+||accounts.google.com/gsi/*$xhr,script,3p
+

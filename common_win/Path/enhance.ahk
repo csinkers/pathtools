@@ -624,19 +624,28 @@ ShouldHandleCmd()
     ^Z::SendInput ^ucd ..{Enter}
 #IfWinActive
 
-GetActiveExplorerTab(hwnd:="") {
+GetActiveExplorerTab(hwnd := "")
+{
     static IID_IShellBrowser := "{000214E2-0000-0000-C000-000000000046}"
 
-    activeTab := 0, hwnd := hwnd ? hwnd : WinExist("A")
+    activeTab := 0
+    hwnd := hwnd ? hwnd : WinExist("A")
     try
+    {
         ControlGet, activeTab, Hwnd,, ShellTabWindowClass1, ahk_id %hwnd%   ; File Explorer (Windows 11)
+    }
     catch
-    try
+    {
         ControlGet, activeTab, Hwnd,, TabWindowClass1, ahk_id %hwnd%    ; IE
-    for w in ComObjCreate("Shell.Application").Windows {
+    }
+
+    for w in ComObjCreate("Shell.Application").Windows
+    {
         if (w.hwnd != hwnd)
             continue
-        if (activeTab) { ; The window has tabs, so make sure this is the right one.
+
+        if (activeTab)
+        { ; The window has tabs, so make sure this is the right one.
             shellBrowser := ComObjQuery(w, IID_IShellBrowser, IID_IShellBrowser)
             DllCall(NumGet(NumGet(shellBrowser+0), 3*A_PtrSize), "UPtr",shellBrowser, "UIntP",thisTab:=0)
             if (thisTab != activeTab)
@@ -646,7 +655,8 @@ GetActiveExplorerTab(hwnd:="") {
     }
 }
 
-GetActiveExplorerPath() {
+GetActiveExplorerPath()
+{
     WinGetClass, TmpClass, A
     TmpPath = "C:\"
     if(TmpClass = "CabinetWClass")

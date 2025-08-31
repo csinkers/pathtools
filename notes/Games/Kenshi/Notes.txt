@@ -1,9 +1,47 @@
 
+ Name             | Skills              | Jobs                         | Armour   | Weapons
+ 1 Citizen        | SNK SCI ENG FRM LAB | Research Engineer Electrical | x Sneaky | Katana Sabre hack => x Meit LSwd(Sab)
+ 2 Beep           | SNK LAB             | CopperHauling                | x Sneaky | Katana            => x Edg2 Nodachi
+ 3 Sadneil        | SNK                 | BreadHauling                 | x Sneaky | Sabre             => x Meit HoledSabre
+ 4 Hamut          | SNK                 | MetalHauling                 | x Sneaky | Katana (*~20)     => x Edg2 Nodachi
+ 5 Riddly         | snk                 | Electrical                   | x Ranged | Katana            => - Edg1 Katana
+ 6 Ethal          | SNK                 | Electrical                   | x Ranged | Katana            => - Edg1 Katana
+ 7 Voth           | SNK FRM LAB         | Farming                      | x Ranged | Katana XB hack    => x Edg2 Katana S.SBat (Heavy)
+ 8 Fuumin         | SNK FRM LAB MED SCI | Farming                      |   Ranged | Katana XB         => x Edg2 Katana H.OW2 (Regular)
+ 9 Miu            | SNK FRM             | Farming                      | x Light  | Pole              => - Edg1 Naginata(Pole)
+10 Crumblejon     | SNK LAB ARM         | Farming BioFuel              |   Light  | Heavy (~*10)      => - Edg1 Plank
+11 Shryke         | SNK LAB             | BioFuel                      |   Light  | Sabre             => - Edg1 HoledSabre
+12 Molly          | SNK COOK LAB        | Cooking Grog                 |   Light  | Sabre             => - Edg1 Longsword
+13 Oron           | SNK LAB WEAP ENG    | Engineer CopperAlloy         |   Light  | Katana Hacker     => x Edg2 Nodachi
+14 Ruka           | SNK ARM LAB SCI     | Armour                       |   Heavy  | Heavy             => - Edg1 Plank
+15 Rane the Giant | SNK ARM LAB XBO     | Armour                       |   Heavy  | Sabre (*~20)      => - Edg1 RingedSabre
+16 Plumpbug       |                     |                              |   Heavy  | Pole              =>   Mk3 Polearm
+17 Infinite WW    |                     |                              |   Heavy  | Sabre             => - Edg1 Longsword
+18 Jinsei         |                     |                              |   Heavy  | Heavy             =>   Mk3 Plank
+19 Hotlongs       |                     |                              |   Heavy  | Katana            => - Edg1 Nodachi
+
+Garru
+Bull
+Pinchy
+
+Katana 123456
+Sabre  123
+Heavy  12
+Hacker 1
+Pole   1
+
+Need:
+    Medical
+    Robotics
+    Crossbows
+    Hash
+
+
 Armour | Heavy              | Light              | Martial            | Ranged             | Stealth
 -------+--------------------+--------------------+--------------------+--------------------+-----------------
 Head   | Crab Helmet        | Crab Helmet        | Crab Helmet        | Iron Hat           | Swamp Ninja Mask
 Body   | Samurai Armour     | Assassin's Rags    | Assassin's Rags    | Assassin's Rags    | Assassin's Rags/Ninja Rags
-Shirt  | Leather Turtleneck | Leather Turtleneck | Leather Turtleneck | Leather Turtleneck | Dark Leather Shift
+Shirt  | Leather Turtleneck | Leather Turtleneck | Leather Turtleneck | Leather Turtleneck | Dark Leather Shirt
 Leg    | Samurai Legplates  | Samurai Legplates  | Armoured Rag Skirt | Samurai Clothpants | Samurai Clothpants/Ninja Pants
 Foot   | Samurai Boots      | Samurai Boots      | Wooden Sandals     | Wooden Sandals     | Wooden Sandals
 
@@ -40,6 +78,16 @@ Research/engineering/misc work/trading
 Cooks/Brewers
 Farmers/Labourers
 Gunners
+
+Best $ weap:
+    Desert Sabre (100)
+    Foreign Sabre (83.3)
+    (Guardless) Katana (71.43)
+
+Best $ armour:
+    Heart protector (4066/hr)
+    Bandana (2137/hr)
+    Rattan hat (1372/hr)
 
 
 Citizen        : Stealth katana : Eng, Sci, Farm

@@ -624,52 +624,55 @@ ShouldHandleCmd()
     ^Z::SendInput ^ucd ..{Enter}
 #IfWinActive
 
-GetActiveExplorerTab(hwnd := "")
-{
+GetActiveExplorerTab(hwnd:="") {
     static IID_IShellBrowser := "{000214E2-0000-0000-C000-000000000046}"
 
-    activeTab := 0
-    hwnd := hwnd ? hwnd : WinExist("A")
-    try
-    {
+    activeTab := 0, hwnd := hwnd ? hwnd : WinExist("A")
+    try {
         ControlGet, activeTab, Hwnd,, ShellTabWindowClass1, ahk_id %hwnd%   ; File Explorer (Windows 11)
+        OutputDebug, Got active tab %activeTab% from ShellTabWindowClass1 (W11)`n
     }
-    catch
-    {
-        ControlGet, activeTab, Hwnd,, TabWindowClass1, ahk_id %hwnd%    ; IE
-    }
+    catch { }
 
-    for w in ComObjCreate("Shell.Application").Windows
-    {
+    try {
+        ControlGet, activeTab, Hwnd,, TabWindowClass1, ahk_id %hwnd%    ; IE
+        OutputDebug, Got active tab %activeTab% from TabWindowClass1 (IE)`n
+    }
+    catch { }
+
+    for w in ComObjCreate("Shell.Application").Windows {
         if (w.hwnd != hwnd)
             continue
 
-        if (activeTab)
-        { ; The window has tabs, so make sure this is the right one.
+        if (activeTab) { ; The window has tabs, so make sure this is the right one.
             shellBrowser := ComObjQuery(w, IID_IShellBrowser, IID_IShellBrowser)
-            DllCall(NumGet(NumGet(shellBrowser+0), 3*A_PtrSize), "UPtr",shellBrowser, "UIntP",thisTab:=0)
+            DllCall(NumGet(NumGet(shellBrowser+0), 3*A_PtrSize), "UPtr", shellBrowser, "UIntP", thisTab := 0)
             if (thisTab != activeTab)
                 continue
         }
+
         return w
     }
 }
 
-GetActiveExplorerPath()
-{
+GetActiveExplorerPath() {
     WinGetClass, TmpClass, A
     TmpPath = "C:\"
     if(TmpClass = "CabinetWClass")
     {
         tab := GetActiveExplorerTab()
-        switch ComObjType(tab.Document, "Class")
+        objType := ComObjType(tab.Document, "Class")
+        OutputDebug, Tab obj type is %objType%`n
+        switch objType
         {
             case "ShellFolderView":
                 TmpPath := tab.Document.Folder.Self.Path
             default: ;case "HTMLDocument":
                 TmpPath := % tab.LocationURL
         }
+        OutputDebug, Got path %TmpPath%`n
     }
+
     return TmpPath
 }
 
